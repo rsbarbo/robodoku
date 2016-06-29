@@ -30,7 +30,7 @@ attr_reader :columns,
 
   def positions(columns)
   positioned = Array.new
-  assigned_position = "a0"
+  assigned_position = "a"
   columns.each do |square|
     square.split("").each do |position|
       positioned << assigned_position + position

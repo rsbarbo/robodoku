@@ -24,7 +24,7 @@ class GameBoardTest < Minitest::Test
   end
 
   def test_positons
-    result = ["a0 ", "a17", "a23", "a31", "a49", "a52", "a65", "a74", "a86", "a92", "b01", "b19", "b26", "b34", "b45", "b53", "b68", "b77"]
+    result = ["a ", "b7", "c3", "d1", "e9", "f2", "g5", "h4", "i6", "j2", "k1", "l9", "m6", "n4", "o5", "p3", "q8", "r7"]
     assert_equal result, gameboard.positions([" 73192546", "219645387"])
   end
 
