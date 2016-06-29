@@ -1,4 +1,5 @@
 require "pry"
+require "./lib/game_board"
 
 class Solver
 
@@ -7,6 +8,13 @@ class Solver
   def character_counter(sudoku)
     sudoku.size
   end
+
+
+ #data_structure will hold both columns (position [0] of the
+ # array for each line) and rows
+ #rows = []
+ #puzzle_text.map do |row|
+ #rows << row.chomp
 
   def missing_characters_in_row(sudoku)
     array = []
@@ -20,12 +28,17 @@ class Solver
     array
   end
 
-  def missing_characters_in_column
+  #create a loop that would iterate through all the rows
 
+  def missing_characters_in_column
+    #enter your code here
   end
 
-
-
   #compare up and down for repeated
+
+def solve
+  #this is the final method
+  #enter your code here
+end
 
 end

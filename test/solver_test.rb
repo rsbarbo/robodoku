@@ -5,7 +5,7 @@ require "./lib/solver"
 class SolverTest < Minitest::Test
 
   def test_read_file_per_line
-    
+
   end
 
   def test_counts_characters
@@ -21,6 +21,7 @@ class SolverTest < Minitest::Test
   end
 
   def test_missing_characters_in_column
+    skip
     assert_equal [1], Solver.new.missing_characters_in_column(" 2", "21")
   end
 
