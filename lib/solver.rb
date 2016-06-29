@@ -5,10 +5,13 @@ class Solver
 
   # we need to count the number of rows and columns
 
+  def initialize(gameboard)
+    @gameboard = gameboard
+  end
+
   def character_counter(sudoku)
     sudoku.size
   end
-
 
  #data_structure will hold both columns (position [0] of the
  # array for each line) and rows
