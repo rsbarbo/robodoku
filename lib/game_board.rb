@@ -2,12 +2,12 @@
 class GameBoard
 
   attr_reader :puzzle_text, :split_numbers,
-              :row, :positioning, :zipped_digits_rows
+  :row, :positioning, :zipped_digits_rows
 
   def initialize(puzzle_text)
     @puzzle_text = puzzle_text
     @row = [*"a".."i"]
-    @positioning = Array.new
+    @positioning = []
   end
 
   #needs to make sure this is working properly
@@ -24,6 +24,14 @@ class GameBoard
     splitted
   end
 
+  def squares
+    position_number = [*"1".."9"]
+    position_setup = position_number.each_slice(3).map do |position|
+      position.map {|column| column * 9}
+    end
+    position_setup.join.chars
+  end
+
   def creating_gameboard
     digits = Array.new.push("#" * row.length)[0].split("")
     @zipped_digits_rows = row.zip(digits).map! do |zip|
@@ -32,28 +40,24 @@ class GameBoard
     create_positioning
   end
 
-    def create_positioning
+  def create_positioning
     row.length.times do |rows|
       positioning << zipped_digits_rows.map do |index|
         index.gsub("#", (rows+1).to_s)
       end
     end
-    final_positions = positioning.flatten.zip(square).map! {|zip| zip.join()}
-    board_with_values = final_positions.zip(split_numbers(puzzle_text).join.chars)
-    @final_board = board_with_values.reduce(Hash.new) do |hash, array|
-      hash[array[0]] = array[1]
-      hash
-    end
+    create_hash_with_values(positioning)
   end
 
-  def square
-    letters = [*"1".."9"]
-    square = letters.each_slice(3).map do |slice|
-      slice.map do |c|
-        (c * 3) * 3
-      end
-    end.join.chars
-
+    def create_hash_with_values(positioning)
+    p_assigned = positioning.flatten.zip(squares).map! {|zip| zip.join()}
+    n_to_p = p_assigned.zip(split_numbers(puzzle_text).join.chars)
+    n_to_p.reduce(Hash.new) do |hash, array|
+      hash[array[0]] = array[1]
+      #this is still not working properly
+      hash
+      binding.pry
+    end
   end
 
 end
