@@ -2,7 +2,7 @@
 class GameBoard
 
   attr_reader :puzzle_text, :split_numbers,
-  :row, :positioning, :zipped_digits_rows
+              :row, :positioning, :zipped_digits_rows
 
   def initialize(puzzle_text)
     @puzzle_text = puzzle_text
