@@ -10,13 +10,12 @@ class GameBoard
     @positioning = []
   end
 
-  #needs to make sure this is working properly
   def check_for_discrenpancies(puzzle_text)
     puzzle_text.each do |chars|
       chars.gsub!(chars, "ErrorMessage!! Check number of characters") if chars != 9
     end
   end
-  
+
   def split_numbers(puzzle_text)
     splitted = puzzle_text.map do |row|
       row.chomp.ljust(9, " ").chars

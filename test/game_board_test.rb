@@ -9,8 +9,8 @@ require "pry"
 class GameBoardTest < Minitest::Test
 
   attr_reader :puzzle_path,
-  :puzzle_text,
-  :gameboard
+              :puzzle_text,
+              :gameboard
 
   def setup
     @puzzle_path = "./puzzles/easy.txt"
@@ -41,6 +41,12 @@ class GameBoardTest < Minitest::Test
   def test_row_length_equals_nice
     gameboard.split_numbers(puzzle_text)
     assert_equal 9, gameboard.row.length
+  end
+
+  def test_create_hash_with_values
+    nested_array = [["a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1", "i1"],["a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2", "i2"]]
+    result = {"a11"=>" ", "b11"=>" ", "c11"=>" ", "d11"=>"2", "e11"=>"6", "f11"=>" ", "g11"=>"7", "h11"=>" ", "i11"=>"1", "a22"=>"6", "b22"=>"8", "c22"=>" ", "d22"=>" ", "e22"=>" ", "f22"=>"7", "g22"=>" ", "h22"=>" ", "i22"=>"9"}
+    assert_equal result, gameboard.create_hash_with_values(nested_array)
   end
 
 end
