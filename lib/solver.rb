@@ -7,5 +7,9 @@ class Solver
     @gameboard = gameboard
   end
 
+  def solve
+    p "hi"
+  end
+
 
 end
