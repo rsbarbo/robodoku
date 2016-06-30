@@ -13,10 +13,10 @@ class GameBoard
   #needs to make sure this is working properly
   def check_for_discrenpancies(puzzle_text)
     puzzle_text.each do |chars|
-      print "ErrorMessage!! Check number of characters" if chars.length < 9
+      chars.gsub!(chars, "ErrorMessage!! Check number of characters") if chars != 9
     end
   end
-
+  
   def split_numbers(puzzle_text)
     splitted = puzzle_text.map do |row|
       row.chomp.ljust(9, " ").chars
@@ -49,7 +49,7 @@ class GameBoard
     create_hash_with_values(positioning)
   end
 
-    def create_hash_with_values(positioning)
+  def create_hash_with_values(positioning)
     values_positioned = Hash.new
     p_assigned = positioning.flatten.zip(squares).map! {|zip| zip.join()}
     n_to_p = p_assigned.zip(split_numbers(puzzle_text).join.chars)
@@ -57,7 +57,6 @@ class GameBoard
       values_positioned[array.first] = array.last
     end
     values_positioned
-    binding.pry
   end
 
 end
