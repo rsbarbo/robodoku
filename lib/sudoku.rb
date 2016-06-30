@@ -4,5 +4,5 @@ require "./lib/game_board"
 puzzle_path = ARGV[0]
 puzzle_text = File.readlines(puzzle_path).map(&:chomp)
 gameboard = GameBoard.new(puzzle_text)
-# solver = Solver.new(gameboard)
-# puts solver.solve
+solver = Solver.new(gameboard)
+puts solver.solve

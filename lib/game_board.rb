@@ -50,14 +50,14 @@ class GameBoard
   end
 
     def create_hash_with_values(positioning)
+    values_positioned = Hash.new
     p_assigned = positioning.flatten.zip(squares).map! {|zip| zip.join()}
     n_to_p = p_assigned.zip(split_numbers(puzzle_text).join.chars)
-    n_to_p.reduce(Hash.new) do |hash, array|
-      hash[array[0]] = array[1]
-      #this is still not working properly
-      hash
-      binding.pry
+    n_to_p.map do |array|
+      values_positioned[array.first] = array.last
     end
+    values_positioned
+    binding.pry
   end
 
 end
