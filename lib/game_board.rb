@@ -1,49 +1,37 @@
-#create a board
-#contain the number of characters needed (up and down - column - in an array)
-#contain the number of characters needed (side ways, rows)
-#contain a nested array for positions
 
 class GameBoard
 
-attr_reader :columns,
-            :puzzle_text
+  attr_reader :puzzle_path
 
   def initialize(puzzle_text)
     @puzzle_text = puzzle_text
-    @rows = puzzle_text
-    @columns = creating_columns(puzzle_text)
-    @boxes = []
-    @square = []
   end
 
-  def creating_columns(puzzletext)
-    columns = []
-    0.upto(puzzletext.length - 1) do |chars_counter|
-    column = []
-     puzzletext.each do |row|
-       column << row[chars_counter]
-     end
-     columns << column.join("")
-    end
-    columns
-  end
-
-  def positions(columns)
-  positioned = Array.new
-  assigned_position = "a"
-  columns.each do |square|
-    square.split("").each do |position|
-      positioned << assigned_position + position
-      assigned_position = assigned_position.next
+  def check_for_discrenpancies(puzzle_text)
+    puzzle_text.each do |chars|
+      raise "ErrorMessage!!! Check number of characters" if chars.length < 9
     end
   end
-  positioned
+
+  def split_numbers(puzzle_text)
+    splitted = puzzle_text.map do |row|
+      row.chomp.ljust(9, " ").chars
+    end
+  splitted
   end
 
-  def creating_boxes
-  end
+  def creating_gameboard
+    positioning = Array.new
+    row = [*"a".."i"]
+    digits = Array.new.push("#" * row.length)[0].split("")
+    zipped_digits_rows = row.zip(digits).map! {|zip| zip.join()}
+    row.length.times do |rows|
+      positioning << zipped_digits_rows.map do |index|
+        index.gsub("#", (rows+1).to_s)
+      end
+      binding.pry
+    end
 
-  def final_board
   end
 
 end
