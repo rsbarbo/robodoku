@@ -4,7 +4,8 @@ class GameBoard
   attr_reader :split_numbers,
               :row,
               :positioning,
-              :zipped_digits_rows
+              :zipped_digits_rows,
+              :puzzle_text
 
   def initialize(puzzle_text)
     @puzzle_text = puzzle_text
