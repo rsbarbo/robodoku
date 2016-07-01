@@ -4,8 +4,8 @@ require "./lib/game_board"
 class Solver
 
   attr_reader :gameboard,
-              :possibilities,
-              :board
+  :possibilities,
+  :board
 
   def initialize(gameboard)
     @gameboard = gameboard
@@ -17,7 +17,7 @@ class Solver
     end
   end
 
-  def assign_possibilities
+  def creating_possibilities
     [*"1".."9"]
   end
 
@@ -25,18 +25,17 @@ class Solver
     find_missing_chars.keys.each do |blank|
       result_1 = board.select do |new_key|
         (new_key.chars & blank.chars).any? == true
-    end
-      possibilities = assign_possibilities
+      end
+      possibilities = creating_possibilities
       result_1.each do |key|
         possibilities.delete(key.last)
       end
-      update_board(blank,possibilities)
+      check_sing_or_mult_poss(blank,possibilities)
     end
     outcome_parser
   end
 
-
-  def update_board(blank, possibilities)
+  def check_sing_or_mult_poss(blank, possibilities)
     if possibilities.length == 1
       board[blank] = possibilities.join
     else
@@ -54,47 +53,61 @@ class Solver
     3.times do
       multiple_values = find_keys_with_multiple_values
       multiple_values.keys.each do |key_value|
-        peers = board.select { |new_key| (new_key.chars & key_value.chars).any? == true}
-        solved_peers = peers.select { |key| peers[key].length == 1}
-        solved_peers.each { |solved| multiple_values[key_value].delete(solved[1]) }
-
-        # p "#{key_value}: #{multiple_values[key_value]}"
-        update_board(key_value,multiple_values[key_value])
-
+        result = board.select do |new_key|
+          (new_key.chars & key_value.chars).any? == true
+        end
+        solved_puzzle = result.select do |key|
+          result[key].length == 1
+        end
+        solved_puzzle.each do |solved|
+          multiple_values[key_value].delete(solved[1])
+        end
+        check_sing_or_mult_poss(key_value,multiple_values[key_value])
       end
     end
-    please_work
+    final_board_check
   end
 
-  def please_work
+  def final_board_check
     until board.values.join.length == 81
-    multiple_values = find_keys_with_multiple_values
-    multiple_values.keys.each do |spot|
-        multiple_values[spot].each do |possibility|
-          peers = board.select { |spots| (spots.chars & possibility.chars).any? == true}
-          unsolved_peers = peers.select { |key| peers[key].length > 1}
-
-          unsolved_peers.each do |different|
-              unsolved_peers[different[0]].each do |possibility|
-                if (unsolved_peers.values.join.include? possibility) == false
-                  board[different[0]] = possibility
-                  p "assigned #{possibility} to #{different[0]}"
-                end
+      multiple_values = find_keys_with_multiple_values
+      multiple_values.keys.each do |position_1|
+        multiple_values[position_1].each do |possibility_counter|
+          result = board.select do |position_2|
+            (position_2.chars & possibility_counter.chars).any? == true
+          end
+          unresolved_puzzle = result.select do |key|
+            result[key].length > 1
+          end
+          unresolved_puzzle.each do |different|
+            unresolved_puzzle[different.first].each do |possibility_counter|
+              #need to add a checker here to stop if possibilities are infinit
+              #it needs to stop
+              if (unresolved_puzzle.values.join.include? possibility_counter) == false
+                binding.pry
+                board[different.first] = possibility_counter
+                p "assigned #{possibility_counter} to #{different[0]}"
               end
+            end
           end
         end
+      end
     end
-    end
-    print_board
+    print_out_to_terminal
   end
 
-  def print_board
-    board.values.flatten.each_slice(9) {|line| puts line.join}
+  def print_out_to_terminal
+    board.values.flatten.each_slice(9) do |line|
+      puts line.join
+    end
   end
 
-  #moved to the button of the other
-    def solve
-      @board = GameBoard.new(gameboard).creating_gameboard
-      find_datastructure_with_multiple_chars
-    end
+  def solver_parser
+    @board = GameBoard.new(gameboard).creating_gameboard
+    find_datastructure_with_multiple_chars
+  end
+
+  def solve
+    solver_parser
+  end
 end

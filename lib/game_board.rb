@@ -19,7 +19,7 @@ class GameBoard
   end
 
   def squares
-    position_number = ["z","y","x","w","v","u"]
+    position_number = [*"1".."6"]
     position_setup = []
     position_setup = position_number.each_slice(3).map do |position|
       position.map do |column|
