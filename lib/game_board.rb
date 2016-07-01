@@ -12,19 +12,20 @@ class GameBoard
   end
 
   def split_numbers(puzzle_text)
-    splitted = puzzle_text.map do |row|
+    splitted = puzzle_text.puzzle_text.map do |row|
       row.chomp.ljust(9, " ").chars
     end
     splitted
   end
 
   def squares
-    position_setup = []
     position_number = ["z","y","x","w","v","u"]
+    position_setup = []
     position_setup = position_number.each_slice(3).map do |position|
-      position.map {|column| (column * 3)} * 3
-    end
-    position_setup.join.chars
+      position.map do |column|
+        (column * 3) * 3
+      end
+    end.join.chars
   end
 
   def creating_gameboard
