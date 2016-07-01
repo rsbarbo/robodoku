@@ -5,4 +5,4 @@ puzzle_path = ARGV[0]
 puzzle_text = File.readlines(puzzle_path).map(&:chomp)
 gameboard = GameBoard.new(puzzle_text)
 solver = Solver.new(gameboard)
-puts solver.solve
+# puts solver.solve
