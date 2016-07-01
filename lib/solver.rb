@@ -9,12 +9,9 @@ class Solver
     @gameboard = gameboard
   end
 
-
-
-  def find_missing
-    gameboard.creating_gameboard.select do |key|
-      gameboard[key] == " "
-    end
+  def peers
+    all_the_possibilities = [*"1".."9"]
+    find_missing = gameboard.creating_gameboard.select { |key| ameboard[key] == " "}
   end
 
   #delete blanks
@@ -22,11 +19,10 @@ class Solver
 
   def pre_solver
     gameboard.creating_gameboard
-    binding.pry
   end
 
   def solve
-    method_will_compare_with_something
+    missing_character
   end
 
 
